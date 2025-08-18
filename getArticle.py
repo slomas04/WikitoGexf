@@ -36,13 +36,21 @@ def get_article(details):
         raise FileNotFoundError(target_title + " Can not be found!")
     
 def get_inlinks(article):
-    s = set(re.findall(r"\[\[(.*?)\]\]", article))
+    fs = set(re.findall(r"\[\[(.*?)\]\]", article))
+    s = [x for x in fs if not x.startswith(("File:", ":en:WP"))]
     for i in s:
-        i = i.split('|')[0]
+        # Filter out Text captions and pagelinks
+        i = filter_string(i)
     return s
 
+def filter_string(i):
+    i = i.split('|')[0]
+    i = i.split('#')[0]
+    i = i.replace('&amp;', "&")
+    return i
+
 def get_inlinks_from_name(n):
-    a = file_from_name(n)
+    a = file_from_name(filter_string(n))
     article = get_article(a)
     return get_inlinks(article)
 

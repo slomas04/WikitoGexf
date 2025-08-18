@@ -17,7 +17,7 @@ def submit_linegroup(lines, nextCode):
     for line in lines:
         lineCode = formatString(line[2])[:2].lower()
         if lineCode not in fileDict:
-            fileDict[lineCode] = open(INDEX_DIR + lineCode + INDEX_POSTFIX, "w+")
+            fileDict[lineCode] = open(INDEX_DIR + lineCode + INDEX_POSTFIX, "w+", encoding="utf8")
         line.insert(1, nextCode)
 
         sline = ":".join(line)
@@ -46,7 +46,7 @@ def main():
         os.makedirs(INDEX_DIR)
 
     print("Reformatting and Writing...")
-    with open(INDEX_PATH) as infile:
+    with open(INDEX_PATH, encoding="utf8") as infile:
         for line in infile:
             handle_index(line)
     handle_index("0:-1:FILE_TERMINATE") # I am too tired to think of a good solution to this
@@ -59,12 +59,12 @@ def main():
     files = glob.glob(INDEX_DIR + "*")
     for i in files:
         fileArr = []
-        with open (i, 'r') as f:
+        with open (i, 'r', encoding="utf8") as f:
             for line in f:
                 linef = line.split(":", 3)
                 fileArr.append(linef)
         fileArr.sort(key=lambda x: x[3])
-        with open(i, 'w') as f:
+        with open(i, 'w', encoding="utf8") as f:
             for x in fileArr:
                 sline = ":".join(x)
                 f.write(sline)

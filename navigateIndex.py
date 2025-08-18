@@ -21,7 +21,7 @@ def file_from_name(name):
     nc = formatString(name)[:2].lower()
     fileAsArr = []
     
-    with open(INDEX_DIR + nc + INDEX_POSTFIX, "r") as f:
+    with open(INDEX_DIR + nc + INDEX_POSTFIX, "r", encoding="utf8") as f:
         for line in f:
             linef = line.split(":", 3)
             fileAsArr.append(linef)
@@ -30,8 +30,12 @@ def file_from_name(name):
     if (pos < 0):
        name = name[0].upper() + name[1:]
        posb = binSearch(fileAsArr, name)
-       if posb < 0:
-        raise Exception("Could not find " + name + " in index!")
+       posc = binSearch(fileAsArr, name.replace('&', 'and'))
+       if posb >= 0:
+         return fileAsArr[posb]
+       if posc >= 0:
+         return fileAsArr[posc]
+       raise Exception("Could not find " + name + " in index!")
     
     return fileAsArr[pos]
         

@@ -37,8 +37,12 @@ linkBuf = []
 for d in range(0, int(args.depth)):
     for name in nextLinks:
         name = name.split("|")[0]
-        b = get_inlinks_from_name(name)
-        addNodeAndLinks(name, b)
+        try:
+            b = get_inlinks_from_name(name)
+            addNodeAndLinks(name, b)
+        except Exception:
+            print(Exception)
+            
         linkBuf += b
     
     nextLinks = linkBuf
