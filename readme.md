@@ -15,4 +15,11 @@ Chicory: A Colorful Tale             |  Wikipedia: Unusual Articles
   2. pages-articles-multistream-index.txt.bz2 --> The index of the byte offset for all articles in the multistream archive.
 - Extract the index file
 - Place both the index and the multistream files in the same directory as this repository.
-- 
+- Run `indexWiki.py`. This creates a folder (`index/`) that splits the index file up and sorts the articles in the subfiles.
+  - This may take a while, and due to open file limits it will NOT work on Windows. I suggest either running this in WSL or moving the index folder over to Windows from Linux if you must use Windows.
+
+## Usage Guide
+To create a gexf file for a search, run Wiki2Gexf.py. 
+ - You can specify either an article name with `-n` or an article URL with `-u`
+ - You can limit the depth of the search with `-d`. This defaults to 1, and any search with d>1 will result in a very large gexf file.
+ - You need to specify an output file.
