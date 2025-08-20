@@ -31,7 +31,7 @@ def get_article(details):
     for page in root.findall("page"):  
         title_elem = page.find("title")  
         if title_elem is not None and title_elem.text == target_title:
-            return ET.tostring(page, encoding="utf-8").decode("utf-8")
+            return page.find("revision").find("text").text
     else:
         raise FileNotFoundError(target_title + " Can not be found!")
     
@@ -73,6 +73,5 @@ def main():
     print(inlinks)
     
     
-
 if __name__ == "__main__":
     main()
